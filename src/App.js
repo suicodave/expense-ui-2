@@ -1,4 +1,28 @@
+// Step 4
+import { useEffect, useState } from "react";
+
 function App() {
+  // Step 1
+  const [expenses, setExpenses] = useState([]);
+
+  // Step 2
+  const fetchExpenses = async () => {
+    const apiUrl = "http://localhost:1234";
+
+    const endpoint = `${apiUrl}/api/expenses`;
+
+    const response = await fetch(endpoint);
+
+    const expenseData = response.json();
+
+    setExpenses(expenseData);
+  };
+
+  // Step 3
+  useEffect(() => {
+    fetchExpenses();
+  }, []);
+
   return (
     <div>
       <form>
@@ -11,21 +35,17 @@ function App() {
       <h2>My Expenses</h2>
 
       <table width="100%">
-        <tr>
-          <th>Id</th>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Date</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Date</th>
+          </tr>
+        </thead>
 
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        <tbody></tbody>
       </table>
-
     </div>
   );
 }
