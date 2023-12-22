@@ -1,6 +1,21 @@
 // Step 4
 import { useEffect, useState } from "react";
 
+function renderExpenses(expenses) {
+  const rows = expenses.map((expense) => {
+    return (
+      <tr key={expense._id}>
+        <td>{expense._id}</td>
+        <td>{expense.description}</td>
+        <td>{expense.amount}</td>
+        <td>{new Date(expense.date).toDateString()}</td>
+      </tr>
+    );
+  });
+
+  return rows;
+}
+
 function App() {
   // Step 1
   const [expenses, setExpenses] = useState([]);
@@ -13,7 +28,7 @@ function App() {
 
     const response = await fetch(endpoint);
 
-    const expenseData = response.json();
+    const expenseData = await response.json();
 
     setExpenses(expenseData);
   };
@@ -44,7 +59,7 @@ function App() {
           </tr>
         </thead>
 
-        <tbody></tbody>
+        <tbody>{renderExpenses(expenses)}</tbody>
       </table>
     </div>
   );
